@@ -1,0 +1,12 @@
+version: '3'
+services:
+  juice-shop:
+    image: "bkimminich/juice-shop"
+    ports:
+     - "3000:3000"
+  shake-logger:
+    image: "wurstbrot/shake-logger"
+    ports:
+     - "8080:8080"
+    environment:
+     - "TARGET_SOCKET=localhost:8080"

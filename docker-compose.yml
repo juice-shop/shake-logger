@@ -7,6 +7,6 @@ services:
   shake-logger:
     image: "wurstbrot/shake-logger"
     ports:
-     - "8080:8080"
+     - "8080:80"
     environment:
      - "TARGET_SOCKET=localhost:8080"

@@ -5,7 +5,7 @@ services:
     ports:
      - "3000:3000"
   shake-logger:
-    image: "wurstbrot/shake-logger"
+    build: .
     ports:
      - "8080:80"
     environment:

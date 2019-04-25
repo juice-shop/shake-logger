@@ -3,8 +3,15 @@
 $logger = "/tmp/logger.php";
 
 if ($_REQUEST['input']) {
-		file_put_contents($logger, 'IP: ' . $_SERVER['REMOTE_ADDR'] . 'Date: ' . date('Y-m-d H:i:s', time()) . ", Text: " . $_REQUEST['input']. "\n", FILE_APPEND);
+        file_put_contents($logger, 'IP: ' . $_SERVER['REMOTE_ADDR'] . 'Date: ' . date('Y-m-d H:i:s', time()) . ", Text: " . $_REQUEST['input']. "\n", FILE_APPEND);
 } else {
-		echo nl2br(file_get_contents($logger));
+?><html>
+<head>
+    <meta http-equiv="refresh" content="5"/>
+</head>
+<body>
+    <?= nl2br(@file_get_contents($logger)); ?>
+</body>
+</html>
+<?php
 }
-

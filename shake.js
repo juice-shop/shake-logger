@@ -61,7 +61,10 @@ if (function () {
                 }, 15500)
             }, !0), e.addEventListener("ended", function () {
                 m(), t()
-            }, !0), e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>", document.body.appendChild(e), e.play()
+            }, !0), e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>", document.body.appendChild(e), e.play().catch(function() {
+                errorMessage = "Please enable audio for this site"
+                console.log(errorMessage);
+            });
         }
 
         function l(e) {

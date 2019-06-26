@@ -1,6 +1,8 @@
 # shake-logger
 This projects provides a logger and a connected harlem shake js. The shake logger runs on port 8080, make sure that it is not blocked.
 
+Please enable [autoplay](https://www.ghacks.net/2018/02/06/how-to-control-audio-and-video-autoplay-in-google-chrome/) in your browser.
+
 # Juice Shop
 This projects helps in awareness trainings, specally with the [juice shop](https://github.com/bkimminich/juice-shop).
 You can use it via docker and docker-compose running:

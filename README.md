@@ -1,5 +1,5 @@
 # shake-logger
-This projects provides a logger and a connected harlem shake js.
+This projects provides a logger and a connected harlem shake js. The shake logger runs on port 8080, make sure that it is not blocked.
 
 # Juice Shop
 This projects helps in awareness trainings, specally with the [juice shop](https://github.com/bkimminich/juice-shop).

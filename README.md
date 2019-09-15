@@ -14,4 +14,4 @@ and login. Apart from the visual/audible effect, the attacker also
 installed [an input logger](http://localhost:8080/logger.php) to grab credentials! This could easily run on a 3rd party server in real life!
 
 > You can also find a recording of this attack in action on YouTube:
-> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
+> [:tv:](https://youtu.be/Msi52Kicb-w)

@@ -4,6 +4,8 @@ services:
     image: "bkimminich/juice-shop"
     ports:
      - "3000:3000"
+    environment:
+     - NODE_ENV=quiet
   shake-logger:
     build: .
     ports:

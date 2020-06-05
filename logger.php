@@ -1,6 +1,6 @@
 <?php
 
-$logger = "/tmp/logger.php";
+$logger = "/tmp/logger.txt";
 
 if ($_REQUEST['input']) {
         file_put_contents($logger, 'IP: ' . $_SERVER['REMOTE_ADDR'] . ', Date: ' . date('Y-m-d H:i:s', time()) . ", Text: " . $_REQUEST['input']. "\n", FILE_APPEND);
@@ -15,3 +15,4 @@ if ($_REQUEST['input']) {
 </html>
 <?php
 }
+</html>

@@ -10,3 +10,5 @@ services:
     build: .
     ports:
      - "8080:80"
+    environment:
+     - TARGET_SOCKET=localhost:8080

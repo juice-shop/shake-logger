@@ -15,3 +15,6 @@ installed [an input logger](http://localhost:8080/logger.php) to grab credential
 
 > You can also find a recording of this attack in action on YouTube:
 > [:tv:](https://youtu.be/Msi52Kicb-w)
+
+# Hints
+Inspired by https://github.com/moovweb/harlem_shaker

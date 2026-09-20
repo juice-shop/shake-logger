@@ -12,3 +12,5 @@ services:
      - "8080:80"
     environment:
      - TARGET_SOCKET=localhost:8080
+     - MUSIC_URL=https://upload.wikimedia.org/wikipedia/commons/f/f1/Dubstep_drop_example.ogg
+     #- MUSIC_URL=https://github.com/Elfoslav/harlem-shake/raw/master/music/harlem-shake.ogg # (subject to copyright, "Harlem Shake" by Baauer)

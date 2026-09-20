@@ -19,26 +19,34 @@ $lines = array_values(array_filter(explode("\n", $raw)));
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
+  /* ── Neon Fire palette (as used on owasp-juice.shop / MultiJuicer) ── */
+  :root {
+    --fire-pink:   #ff2d55;  /* primary */
+    --fire-yellow: #ffcc00;  /* accent  */
+    --fire-red:    #ff3e3e;
+    --fire-deep:   #e60039;
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html { overflow-x: hidden; }
 
   body {
-    background: #000;
-    color: #00ff41;
+    background: radial-gradient(ellipse at 50% -10%, #1a0008 0%, #000 60%);
+    color: var(--fire-pink);
     font-family: 'Share Tech Mono', 'Courier New', monospace;
-    font-size: 13px;
+    font-size: clamp(14px, 1.15vw, 18px);
     min-height: 100vh;
-    padding: 24px 20px;
+    padding: 24px clamp(20px, 4vw, 64px);
     overflow-x: hidden;
   }
 
-  /* Matrix rain canvas sits behind everything */
+  /* Ember rain canvas sits behind everything */
   #matrix-rain {
     position: fixed;
     inset: 0;
     z-index: 0;
-    opacity: 0.12;
+    opacity: 0.16;
     pointer-events: none;
   }
 
@@ -64,7 +72,7 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     position: fixed;
     left: 0; top: -4px;
     width: 100%; height: 4px;
-    background: linear-gradient(transparent, rgba(0,255,65,0.18), transparent);
+    background: linear-gradient(transparent, rgba(255,45,85,0.22), transparent);
     animation: sweep 7s linear infinite;
     pointer-events: none;
     z-index: 101;
@@ -75,51 +83,51 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 960px;
+    max-width: 1600px;
     margin: 0 auto;
   }
 
   /* ── Header ─────────────────────────────────────────────── */
   .hdr {
-    border: 1px solid #00ff41;
-    box-shadow: 0 0 12px rgba(0,255,65,.25), inset 0 0 30px rgba(0,255,65,.03);
+    border: 1px solid var(--fire-pink);
+    box-shadow: 0 0 12px rgba(255,45,85,.30), inset 0 0 30px rgba(255,45,85,.04);
     padding: 16px 20px 12px;
     margin-bottom: 16px;
   }
 
   .hdr-label {
-    font-size: 10px;
+    font-size: .78em;
     letter-spacing: .15em;
-    color: #007a1f;
+    color: #b02a44;
     margin-bottom: 10px;
   }
 
   .hdr-title {
-    font-size: 22px;
+    font-size: 1.7em;
     letter-spacing: .08em;
-    color: #00ff41;
-    text-shadow: 0 0 12px #00ff41, 0 0 24px #00ff4166;
+    color: var(--fire-pink);
+    text-shadow: 0 0 12px var(--fire-pink), 0 0 24px rgba(255,204,0,.4);
   }
 
 /* ── Log table ───────────────────────────────────────────── */
   .log-box {
-    border: 1px solid #003900;
-    background: rgba(0, 15, 0, 0.45);
+    border: 1px solid #4d0016;
+    background: rgba(20, 0, 6, 0.45);
   }
 
   .log-title {
-    background: #001200;
-    border-bottom: 1px solid #003900;
+    background: #180006;
+    border-bottom: 1px solid #4d0016;
     padding: 6px 14px;
     display: flex;
     justify-content: space-between;
-    font-size: 11px;
-    color: #00c830;
+    font-size: .85em;
+    color: #ff5c78;
   }
 
   .dot-live {
-    color: #00ff41;
-    text-shadow: 0 0 6px #00ff41;
+    color: var(--fire-red);
+    text-shadow: 0 0 6px var(--fire-red);
     animation: blink 1.1s step-end infinite;
   }
   @keyframes blink { 50% { opacity: 0; } }
@@ -130,24 +138,24 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     gap: 0 10px;
     align-items: baseline;
     padding: 5px 14px;
-    border-bottom: 1px solid #001600;
+    border-bottom: 1px solid #200009;
     transition: background .15s;
   }
   .log-entry:last-child { border-bottom: none; }
-  .log-entry:hover { background: rgba(0,255,65,.04); }
+  .log-entry:hover { background: rgba(255,45,85,.05); }
 
-  .ln   { color: #1a4d1a; text-align: right; user-select: none; font-size: 11px; }
-  .pmt  { color: #006614; }
+  .ln   { color: #5a1020; text-align: right; user-select: none; font-size: .85em; }
+  .pmt  { color: #a01030; }
   .row  { display: block; word-break: break-all; overflow-wrap: anywhere; min-width: 0; }
 
-  .badge-ip   { color: #00ffcc; text-shadow: 0 0 5px #00ffcc88; white-space: nowrap; margin-right: 10px; }
-  .badge-date { color: #007a33; white-space: nowrap; margin-right: 10px; }
-  .badge-text { color: #00ff41; }
+  .badge-ip   { color: var(--fire-yellow); text-shadow: 0 0 5px rgba(255,204,0,.55); white-space: nowrap; margin-right: 10px; }
+  .badge-date { color: #b02a44; white-space: nowrap; margin-right: 10px; }
+  .badge-text { color: var(--fire-pink); }
 
   .empty {
     padding: 28px;
     text-align: center;
-    color: #003300;
+    color: #4d0016;
     letter-spacing: .1em;
   }
 
@@ -156,8 +164,8 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
-    font-size: 11px;
-    color: #004d15;
+    font-size: .85em;
+    color: #802039;
   }
   .cursor::after { content: '_'; animation: blink 1s step-end infinite; }
 </style>
@@ -233,7 +241,11 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     for (let i = 0; i < cols; i++) {
       const ch = CHARS[Math.floor(Math.random() * CHARS.length)];
       const y  = drops[i] * FONT;
-      ctx.fillStyle = drops[i] < 2 ? '#afffcf' : '#00ff41';
+      // Neon Fire gradient: white-hot lead → yellow → pink → deep red tail
+      ctx.fillStyle = drops[i] < 1 ? '#fff3d0'
+                    : drops[i] < 3 ? '#ffcc00'
+                    : drops[i] < 8 ? '#ff2d55'
+                    : '#e60039';
       ctx.fillText(ch, i * FONT, y);
       if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
       drops[i]++;

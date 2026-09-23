@@ -29,16 +29,19 @@ $lines = array_values(array_filter(explode("\n", $raw)));
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { overflow-x: hidden; }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
 
   body {
     background: radial-gradient(ellipse at 50% -10%, #1a0008 0%, #000 60%);
     color: var(--fire-pink);
     font-family: 'Share Tech Mono', 'Courier New', monospace;
     font-size: clamp(14px, 1.15vw, 18px);
-    min-height: 100vh;
     padding: 24px clamp(20px, 4vw, 64px);
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   /* Ember rain canvas sits behind everything */
@@ -85,6 +88,10 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   /* ── Header ─────────────────────────────────────────────── */
@@ -93,6 +100,7 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     box-shadow: 0 0 12px rgba(255,45,85,.30), inset 0 0 30px rgba(255,45,85,.04);
     padding: 16px 20px 12px;
     margin-bottom: 16px;
+    flex-shrink: 0;
   }
 
   .hdr-label {
@@ -113,6 +121,11 @@ $lines = array_values(array_filter(explode("\n", $raw)));
   .log-box {
     border: 1px solid #4d0016;
     background: rgba(20, 0, 6, 0.45);
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .log-title {
@@ -123,6 +136,29 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     justify-content: space-between;
     font-size: .85em;
     color: #ff5c78;
+    flex-shrink: 0;
+  }
+
+  .log-entries {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #4d0016 rgba(20, 0, 6, 0.45);
+  }
+
+  .log-entries::-webkit-scrollbar {
+    width: 8px;
+  }
+  .log-entries::-webkit-scrollbar-track {
+    background: rgba(20, 0, 6, 0.45);
+  }
+  .log-entries::-webkit-scrollbar-thumb {
+    background: #4d0016;
+  }
+  .log-entries::-webkit-scrollbar-thumb:hover {
+    background: var(--fire-pink);
   }
 
   .dot-live {
@@ -166,6 +202,7 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     justify-content: space-between;
     font-size: .85em;
     color: #802039;
+    flex-shrink: 0;
   }
   .cursor::after { content: '_'; animation: blink 1s step-end infinite; }
 </style>
@@ -186,28 +223,30 @@ $lines = array_values(array_filter(explode("\n", $raw)));
       <span class="dot-live">&#9632; LIVE</span>
     </div>
 
-    <?php if (empty($lines)): ?>
-      <div class="empty">-- NO DATA CAPTURED YET --</div>
-    <?php else: ?>
-      <?php foreach ($lines as $idx => $line):
-        $n = $idx + 1;
-        preg_match('/IP:\s*([\d.:a-f]+),\s*Date:\s*([\d\- :]+),\s*Text:\s*(.*)/i', $line, $m);
-      ?>
-      <div class="log-entry">
-        <span class="ln"><?= str_pad($n, 3, '0', STR_PAD_LEFT) ?></span>
-        <span class="pmt">&gt;</span>
-        <span class="row">
-          <?php if ($m): ?>
-            <span class="badge-ip">IP:<?= htmlspecialchars($m[1]) ?></span>
-            <span class="badge-date">[<?= htmlspecialchars(trim($m[2])) ?>]</span>
-            <span class="badge-text">MSG:<?= htmlspecialchars($m[3]) ?></span>
-          <?php else: ?>
-            <span class="badge-text"><?= htmlspecialchars($line) ?></span>
-          <?php endif; ?>
-        </span>
-      </div>
-      <?php endforeach; ?>
-    <?php endif; ?>
+    <div class="log-entries" id="log-entries">
+      <?php if (empty($lines)): ?>
+        <div class="empty">-- NO DATA CAPTURED YET --</div>
+      <?php else: ?>
+        <?php foreach ($lines as $idx => $line):
+          $n = $idx + 1;
+          preg_match('/IP:\s*([\d.:a-f]+),\s*Date:\s*([\d\- :]+),\s*Text:\s*(.*)/i', $line, $m);
+        ?>
+        <div class="log-entry">
+          <span class="ln"><?= str_pad($n, 3, '0', STR_PAD_LEFT) ?></span>
+          <span class="pmt">&gt;</span>
+          <span class="row">
+            <?php if ($m): ?>
+              <span class="badge-ip">IP:<?= htmlspecialchars($m[1]) ?></span>
+              <span class="badge-date">[<?= htmlspecialchars(trim($m[2])) ?>]</span>
+              <span class="badge-text">MSG:<?= htmlspecialchars($m[3]) ?></span>
+            <?php else: ?>
+              <span class="badge-text"><?= htmlspecialchars($line) ?></span>
+            <?php endif; ?>
+          </span>
+        </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    </div>
   </div>
 
   <div class="foot">
@@ -252,9 +291,19 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     }
   }
 
+  function scrollToBottom() {
+    const logContainer = document.getElementById('log-entries');
+    if (logContainer) {
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+  }
+
   resize();
   window.addEventListener('resize', resize);
   setInterval(tick, 45);
+
+  scrollToBottom();
+  window.addEventListener('load', scrollToBottom);
 })();
 </script>
 </body>

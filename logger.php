@@ -250,7 +250,7 @@ $lines = array_values(array_filter(explode("\n", $raw)));
   </div>
 
   <div class="foot">
-    <span><?= count($lines) ?> RECORD(S) &nbsp;|&nbsp; NEXT REFRESH IN 5s</span>
+    <span><?= count($lines) ?> RECORD(S) &nbsp;|&nbsp; NEXT REFRESH IN <span id="countdown">5</span>s</span>
     <span class="cursor">MONITORING</span>
   </div>
 
@@ -298,12 +298,28 @@ $lines = array_values(array_filter(explode("\n", $raw)));
     }
   }
 
+  function startCountdown() {
+    let timeLeft = 5;
+    const countdownEl = document.getElementById('countdown');
+    if (!countdownEl) return;
+    const timer = setInterval(function () {
+      timeLeft--;
+      if (timeLeft >= 0) {
+        countdownEl.textContent = timeLeft;
+      }
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+  }
+
   resize();
   window.addEventListener('resize', resize);
   setInterval(tick, 45);
 
   scrollToBottom();
   window.addEventListener('load', scrollToBottom);
+  startCountdown();
 })();
 </script>
 </body>
